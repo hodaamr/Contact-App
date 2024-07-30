@@ -3,6 +3,6 @@
     <string name="name_hint">Name</string>
     <string name="phone_number_hint">Phone Number</string>
     <string name="description_hint">Description</string>
-    <string name="save_btn_text">Save</string>
+    <string name="add_btn_text">Add Contact</string>
     <string name="digit_count">0/11</string>
 </resources>
