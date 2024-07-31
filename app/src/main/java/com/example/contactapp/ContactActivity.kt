@@ -30,15 +30,35 @@ class ContactActivity : AppCompatActivity() {
         addContactClick()
     }
 
+    private fun validateInputs(name: String, phoneNumber: String): Boolean {
+        if (name.isEmpty() || name.length < 3) {
+            binding.nameEditText.error = "Name must be at least 3 characters long"
+            return false
+        }
+
+        val phonePattern = Regex("^0\\d{10}$")
+        if (!phonePattern.matches(phoneNumber)) {
+            binding.phoneNumberEditText.error = "Phone number must start with 0 and be 11 digits long"
+            return false
+        }
+
+        return true
+    }
+
+
+
     private fun addContactClick(){
 
         binding.saveBtn.setOnClickListener {
             initFields()
-            createContactList(name, phoneNumber, description)
-            contactAdapter.notifyItemInserted(0)
-            binding.contactRecyclerIew.scrollToPosition(0)
-            Toast.makeText(this,"Contact Added Successfully!", Toast.LENGTH_SHORT).show()
-            clearFields()
+            if (validateInputs(name, phoneNumber)){
+                createContactList(name, phoneNumber, description)
+                contactAdapter.notifyItemInserted(0)
+                binding.contactRecyclerIew.scrollToPosition(0)
+                Toast.makeText(this,"Contact Added Successfully!", Toast.LENGTH_SHORT).show()
+                clearFields()
+            }
+
         }
     }
 
