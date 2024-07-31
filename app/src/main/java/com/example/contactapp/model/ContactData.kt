@@ -1,6 +1,6 @@
 package com.example.contactapp.model
 
 data class ContactData(
-    val image: Int?,
+    var image: Int?,
     val user: User?
     )
