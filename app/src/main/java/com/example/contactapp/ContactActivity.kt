@@ -27,7 +27,9 @@ class ContactActivity : AppCompatActivity() {
         binding = ActivityContactsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initRecyclerView()
+        initFields()
         addContactClick()
+        updateDigitCountField()
     }
 
     private fun validateInputs(name: String, phoneNumber: String): Boolean {
@@ -45,10 +47,28 @@ class ContactActivity : AppCompatActivity() {
         return true
     }
 
+    private fun updateDigitCountField(){
+        binding.phoneNumberEditText.addTextChangedListener(object : TextWatcher{
 
+            override fun afterTextChanged(p0: Editable?) {
+                phoneNumberDigitCount(p0.toString())
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+
+        })
+
+    }
+
+    private fun phoneNumberDigitCount(phoneNumber: String) {
+        val count = phoneNumber.length
+        binding.digitCountTv.text = "$count/11"
+    }
 
     private fun addContactClick(){
-
         binding.saveBtn.setOnClickListener {
             initFields()
             if (validateInputs(name, phoneNumber)){
@@ -66,12 +86,14 @@ class ContactActivity : AppCompatActivity() {
         name = binding.nameEditText.text.toString()
         phoneNumber = binding.phoneNumberEditText.text.toString()
         description = binding.descriptionEditText.text.toString()
+        binding.digitCountTv.text = "0/11"
     }
 
     private fun clearFields(){
         binding.nameEditText.text = Editable.Factory.getInstance().newEditable("")
         binding.phoneNumberEditText.text = Editable.Factory.getInstance().newEditable("")
         binding.descriptionEditText.text = Editable.Factory.getInstance().newEditable("")
+        binding.digitCountTv.text = "0/11"
 
     }
 

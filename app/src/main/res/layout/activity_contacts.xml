@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/phone_number_edit_text"
         app:layout_constraintEnd_toEndOf="@id/phone_number_edit_text"
-        android:text="@string/digit_count"
+        tools:text="@string/digit_count"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/darker_gray"/>
 
