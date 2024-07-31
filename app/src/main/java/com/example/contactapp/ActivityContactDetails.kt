@@ -12,9 +12,9 @@ class ActivityContactDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityContactDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.contactNameTv.text = "Hoda"
-        binding.userPhoneNumberTv.text = "01112413768"
-        binding.userDescriptionTv.text = "Description"
+        binding.contactNameTv.text = intent.getStringExtra("contact_name")
+        binding.userPhoneNumberTv.text = intent.getStringExtra("contact_phone_number")
+        binding.userDescriptionTv.text = intent.getStringExtra("contact_description")
         binding.avatarIv.setImageResource(R.drawable.boy)
     }
 }

@@ -4,6 +4,7 @@ import android.content.ClipDescription
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,6 @@ class ContactActivity : AppCompatActivity() {
     private val contacts = mutableListOf<ContactData>()
     private var contactAdapter: ContactAdapter = ContactAdapter(contacts)
 
-    var count: Int = 0
     private lateinit var name: String
     private lateinit var phoneNumber: String
     private lateinit var description: String
@@ -29,8 +29,6 @@ class ContactActivity : AppCompatActivity() {
         initRecyclerView()
         addContactClick()
     }
-
-
 
     private fun addContactClick(){
 
@@ -47,7 +45,7 @@ class ContactActivity : AppCompatActivity() {
     private fun initFields(){
         name = binding.nameEditText.text.toString()
         phoneNumber = binding.phoneNumberEditText.text.toString()
-        description = binding.phoneNumberEditText.text.toString()
+        description = binding.descriptionEditText.text.toString()
     }
 
     private fun clearFields(){
@@ -62,11 +60,16 @@ class ContactActivity : AppCompatActivity() {
     }
 
     private fun contactClick(){
+        initFields()
         contactAdapter.OnContactClick = object : OnContactItemClickListener {
             override fun onContactItemClick(contactItem: ContactData?, position: Int) {
                 val intent = Intent(
                     this@ContactActivity, ActivityContactDetails::class.java
-                )
+                ).apply {
+                    putExtra("contact_name", name)
+                    putExtra("contact_phone_number", phoneNumber)
+                    putExtra("contact_description", description)
+                }
                 startActivity(intent)
             }
         }
